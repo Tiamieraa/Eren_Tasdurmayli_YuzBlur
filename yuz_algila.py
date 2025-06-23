@@ -96,10 +96,10 @@ def draw_landmarks_on_image(rgb_image, detection_result, apply_mosaic_effect=Tru
     return annotated_image
 
 def plot_face_blendshapes_bar_graph(face_blendshapes):
-    # Extract the face blendshapes category names and scores.
+
     face_blendshapes_names = [face_blendshapes_category.category_name for face_blendshapes_category in face_blendshapes]
     face_blendshapes_scores = [face_blendshapes_category.score for face_blendshapes_category in face_blendshapes]
-    # The blendshapes are ordered in decreasing score value.
+
     face_blendshapes_ranks = range(len(face_blendshapes_names))
 
     fig, ax = plt.subplots(figsize=(12, 12))
@@ -107,7 +107,7 @@ def plot_face_blendshapes_bar_graph(face_blendshapes):
     ax.set_yticks(face_blendshapes_ranks, face_blendshapes_names)
     ax.invert_yaxis()
 
-    # Label each bar with values
+
     for score, patch in zip(face_blendshapes_scores, bar.patches):
         plt.text(patch.get_x() + patch.get_width(), patch.get_y(), f"{score:.4f}", va="top")
 
@@ -148,11 +148,11 @@ while cam.isOpened():
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
 
-        # STEP 4: Detect face landmarks from the input image.
+
         detection_result = detector.detect(mp_image)
 
-        # STEP 5: Process the detection result. In this case, visualize it.
-        # Mozaikleme aktif ve mozaik yoğunluğu 15 olarak ayarlandı.
+
+
         annotated_image = draw_landmarks_on_image(mp_image.numpy_view(), detection_result, apply_mosaic_effect=True, mosaic_strength=15)
         cv2.imshow("yuz", cv2.cvtColor(annotated_image, cv2.COLOR_RGB2BGR))
         key = cv2.waitKey(1)
